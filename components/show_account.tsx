@@ -1,11 +1,10 @@
-import { Button, notification } from "antd";
+import { notification } from "antd";
 import { connectorErrorText, CouldNotActivateError, EthersModalConnector, NoStaticJsonRPCProviderFoundError, useEthersAppContext, useEthersContext, UserClosedModalError } from "eth-hooks/context";
 import { TCreateEthersModalConnector } from "eth-hooks/models";
-import { useCallback, useEffect } from "react";
-import { fujiEthProvider, web3ClientConfig } from "../utils/appConfig";
+import { useCallback } from "react";
+import { web3ClientConfig } from "../utils/appConfig";
 import { Account, Balance } from 'eth-components/ant';
-import { useAntNotification } from "./useAntNotification";
-import { useAccount, useSigner, useWebsocketProvider, Web3Button, Web3Modal } from "@web3modal/react";
+import { useAccount, useWebsocketProvider, Web3Button, Web3Modal } from "@web3modal/react";
 import { useBalance, useEthersAdaptorFromProviderOrSigners } from "eth-hooks";
 import { mergeDefaultUpdateOptions } from "eth-hooks/functions";
 
@@ -21,30 +20,6 @@ export default function ShowAccount() {
         },
         [web3ClientConfig, web3ClientConfig.theme]
     );
-
-    // const ethersContext = useEthersContext();
-
-    // const ethersContextUpdate = useEffect(() => {
-    //     console.log("ethersContextUpdate");
-    //     console.log(ethersContext);
-    // }, [ethersContext]);
-
-    // to handle a login
-    const handleLoginClick = (): void => {
-        if (createLoginConnector != null && ethersContext?.openModal != null) {
-            const connector = createLoginConnector();
-            ethersContext.openModal(connector!!);
-        }
-    };
-
-    // to handle a log out
-    const handleLogoutClick = (): void => {
-        if (ethersContext?.disconnectModal != null) {
-            ethersContext.disconnectModal();
-        }
-    };
-
-    // const notification = useAntNotification();
 
     const onLoginError = useCallback(
         (e: Error) => {
@@ -73,23 +48,6 @@ export default function ShowAccount() {
     const price = 18.63;
     const blockExplorer = 'https://testnet.snowtrace.io/';
 
-    // const { switchNetwork, data, isLoading, error } = useSwitchNetwork();
-
-    // const switchNetworkUpdate = useEffect(() => {
-    //     console.log("switchNetworkUpdate");
-    //     console.log(data);
-    // }, [data]);
-
-    // const { account, isReady } = useAccount();
-    // const { data } = useSigner();
-    // const accountUpdate = useEffect(() => {
-    //     console.log("accountUpdate");
-    //     console.log(account);
-    //     ethersContext.account = account.address;
-    //     ethersContext.signer = data;
-    //     ethersContext.set
-    // }, [account]);
-
     const { websocketProvider } = useWebsocketProvider();
     const { account } = useAccount();
 
@@ -104,27 +62,18 @@ export default function ShowAccount() {
         adaptor,
     });
 
-    const { data } = useSigner();
-
-    // const balance = useBalance(account.address);
 
     console.log(balance);
 
     return (
         <div>
-            <Web3Button />
-
-            <Button onClick={handleLoginClick}>Login</Button>
-            <Button onClick={handleLogoutClick}>Logout</Button>
             <Account 
-                // createLoginConnector={createLoginConnector}
-                // loginOnError={onLoginError}
-                ensProvider={websocketProvider}
+                createLoginConnector={createLoginConnector}
+                loginOnError={onLoginError}
+                ensProvider={ethersContext.provider}
                 price={price}
-                address={account.address}
                 blockExplorer={blockExplorer}
-                hasContextConnect={false}
-                // signer={data}
+                hasContextConnect={true}
             />
             AVAX 
             <Balance 

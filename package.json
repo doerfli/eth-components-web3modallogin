@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "compileGifContractTypes": "typechain --target ethers-v5 --out-dir contracts './node_modules/@etherisc/gif-contracts/build/**/*json'",
     "compileCustomTypes": "typechain --target ethers-v5 --out-dir contracts './custom-contracts/*json'",
     "build:anttheme": "lessc -x -js ./styles/themes/light-theme.less ./public/ant-light-theme.css"
   },

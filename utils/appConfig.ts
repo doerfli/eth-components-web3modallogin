@@ -9,6 +9,7 @@ export const web3ClientConfig = {
     theme: 'light',
     accentColor: 'default',
     // disableInjectedProvider: true,
+    autoConnect: false,
     ethereum: {
         appName: 'web3Modal',
         autoConnect: false,
@@ -17,30 +18,8 @@ export const web3ClientConfig = {
             chains.avalanche,
             chains.avalancheFuji,
             chains.polygon,
-            // chains.binanceSmartChain,
-            // chains.fantom,
-            // chains.arbitrum,
-            // chains.optimism,
         ],
         providers: [providers.walletConnectProvider({ projectId: '6cf24be37dc19d58bc113806ab03aded' })]
     }
 }
 
-export const web3Config = {
-    projectId: '6cf24be37dc19d58bc113806ab03aded',
-    theme: 'light',
-    accentColor: 'default',
-    ethereum: {
-        appName: 'web3Modal',
-        chains: [
-            chains.mainnet,
-            chains.avalanche,
-            chains.avalancheFuji,
-            chains.polygon,
-            // chains.binanceSmartChain,
-            // chains.fantom,
-            // chains.arbitrum,
-            // chains.optimism,
-        ],
-    }
-}
